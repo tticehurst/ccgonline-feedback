@@ -1,0 +1,16 @@
+{
+  "name": "ccg-scrape",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "shnopy <shnopy319@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "puppeteer": "^10.2.0"
+  }
+}
