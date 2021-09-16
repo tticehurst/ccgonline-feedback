@@ -125,7 +125,7 @@ if (args.includes("-h") || args.includes("--help")) {
 if (args.includes("--chrome")) {
   let argPos = args.indexOf("--chrome");
   chromeDir = args[argPos + 1];
-}else (!args.includes("--chrome")) {
+} else (!args.includes("--chrome")) {
   return console.log("Plesae provide a valid chrome location using '--chrome'");
 }
 
