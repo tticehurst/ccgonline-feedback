@@ -135,5 +135,5 @@ if (args.length === 0) {
 }
 
 if (!args.includes("--chrome")) {
-  return console.log("Plesae provide a valid chrome location using '--chrome'");
+  return console.log("Please provide a valid chrome location using '--chrome'");
 }
