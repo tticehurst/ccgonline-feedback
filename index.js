@@ -114,6 +114,9 @@ if (args.includes("--chrome")) {
   let argPos = args.indexOf("--chrome");
   chromeDir = args[argPos + 1];
 }
+if (!args.includes("--chrome")) {
+  return console.log("Please provide a valid chrome location using '--chrome'");
+}
 
 if (args.includes("-c") || args.includes("--course")) {
   let argPos = args.indexOf("-c") < 0 ? args.indexOf("--course") : args.indexOf("-c");
@@ -134,6 +137,3 @@ if (args.length === 0) {
   console.log("Please provide a valid command line argument");
 }
 
-if (!args.includes("--chrome")) {
-  return console.log("Please provide a valid chrome location using '--chrome'");
-}
