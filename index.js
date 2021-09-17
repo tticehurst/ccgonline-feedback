@@ -83,18 +83,6 @@ async function run(courseId) {
   await page.waitForXPath("//a[@id='usermenu']");
   await page.goto(`https://ccgonline.chichester.ac.uk/course/view.php?id=${courseId}`);
 
-  let openAllCoursesXPath = "//span[@id='toggles-all-opened' and @title='Open all topics']";
-  try {
-    await page.waitForXPath(openAllCoursesXPath, { timeout: 5000 });
-  } catch {
-    console.log("This course has no dropdown, program exiting");
-    await browser.close();
-    return;
-  }
-
-
-  (await page.$x(openAllCoursesXPath))[0].click();
-
   let courseContent = (await page.$x("//section[@id='region-main']"))[0];
 
   let notTurnItInFound = await courseContent.$x("//span[@class='activity-mod-feedback']//a[contains(@href,'https://ccgonline.chichester.ac.uk/mod/assign/view.php')]");
