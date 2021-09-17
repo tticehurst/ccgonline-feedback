@@ -11,3 +11,7 @@ This project is a web scraper created using [Puppeteer](https://github.com/puppe
 - To run the program you must fill out the `.env.example` file and rename it to `.env`. This file should be placed in the same directory as the .exe file
 
 - When running for the first time, run the .exe file with the argument `-h` as this will bring up a help menu
+
+## Disclaimer
+
+Any updates to Moodle have the possibilty to break this program. I am not responsable for any feedback missed due to using this program
