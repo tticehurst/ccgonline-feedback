@@ -1,6 +1,10 @@
 const puppeteer = require("puppeteer");
 const args = process.argv.slice(2);
 var chromeDir;
+var assignmentNames = {
+  "TurnItIn": [],
+  "NotTurnItIn": []
+};
 
 require("dotenv").config();
 
@@ -27,15 +31,22 @@ async function login(page) {
   await loginConfirm.click();
 }
 
-async function findFeedback(obj) {
+async function findFeedback(obj, browser) {
   let returnValue = 0;
 
   for (let assignment in obj) {
     let currentAssignment = obj[assignment];
-
     let textContent = await (await currentAssignment.getProperty("textContent")).jsonValue();
 
+
     if (textContent.toLowerCase().includes("feedback")) {
+      let page = await browser.newPage();
+      let href = await (await currentAssignment.getProperty("href")).jsonValue();
+
+      await page.goto(href);
+      let title = (await page.title()).split(":")[1];
+      assignmentNames["NotTurnItIn"].push(` - ${title}`);
+
       returnValue++;
     }
   }
@@ -61,6 +72,9 @@ async function findTurnItInFeedback(obj, browser) {
 
       let feedback = (await page.$x("//div[@class='feedback']"))[0];
       if (feedback) {
+        let title = (await page.title()).split(":")[1];
+        assignmentNames["TurnItIn"].push(` - ${title}`);
+
         returnValue++;
       }
 
@@ -88,11 +102,11 @@ async function run(courseId) {
   let notTurnItInFound = await courseContent.$x("//span[@class='activity-mod-feedback']//a[contains(@href,'https://ccgonline.chichester.ac.uk/mod/assign/view.php')]");
   let turnItInFound = await courseContent.$x("//a[contains(@href,'https://ccgonline.chichester.ac.uk/mod/assign/view.php')]//span[@class='instancename']");
 
-  let allNotTurnItInFound = await findFeedback(notTurnItInFound);
+  let allNotTurnItInFound = await findFeedback(notTurnItInFound, browser);
   let allTurnItInFound = await findTurnItInFeedback(turnItInFound, browser);
 
-  console.log(`${allNotTurnItInFound} pieces of non turn-it-in feedback found`);
-  console.log(`${allTurnItInFound} pieces of turn-it-in feedback found`);
+  console.log(`${allNotTurnItInFound} pieces of non turn-it-in feedback found\n${assignmentNames["NotTurnItIn"].join("\n")}`);
+  console.log(`${allTurnItInFound} pieces of turn-it-in feedback found\n${assignmentNames["TurnItIn"].join("\n")}`);
 
 
   setTimeout(async () => {

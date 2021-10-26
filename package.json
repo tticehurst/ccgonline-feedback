@@ -6,7 +6,7 @@
   "bin": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "pkg -t node16 index.js -o build/out.exe"
+    "build": "pkg -t node16 index.js -o build/ccgonline-feedback.exe"
   },
   "keywords": [],
   "author": "shnopy <shnopy319@gmail.com>",
